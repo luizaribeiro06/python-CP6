@@ -42,7 +42,7 @@ def soma(n):
 def fatorial(n):
     if n == 0:
         return 1
-    return n * (n-1)
+    return n * fatorial(n-1)
 print(fatorial(5))
 
 # outro jeito do fatorial, porém com auxiliar
