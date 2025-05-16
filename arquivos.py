@@ -74,3 +74,103 @@ arquivo.close() - uma forma de voltar para o primeiro indicador de posição"""
 #quando chega no fim, tem uma string vazia
 """método seek
 passa dois parametros, a qtd de bytes"""
+
+
+#sobrescreve no inicio do arquivo
+a = open("aula.txt", "r+")
+
+a.write("teste----")
+a.close()
+
+#escreve no final
+a = open("aula.txt", "a")
+
+a.write("teste----")
+a.close()
+
+#cria um arquivo novo e sobrescreve oq acabou de criar
+a = open("aula.txt", "w")
+
+a.write("teste----")
+a.close()
+
+#jeito certo
+a = open("aula.txt", "r")
+while True:
+    txt = a.readline()
+    print(txt)
+    if txt == '':
+        break
+a.close()
+
+#substitua o "a" por "A"
+arq = open("aula.txt", "r")
+final = ''
+while True:
+    txt = arq.read(1)
+    if txt == "a":
+        txt = "A"
+    final += txt
+    if txt == '':
+        break
+print(final)
+
+arq.close()
+
+#substitua o "a" por "A"
+arq = open("aula.txt", "r")
+final = ''
+while True:
+    txt = arq.read(1)
+    if txt == "a":
+        txt = "A"
+    final += txt
+    if txt == '':
+        break
+print(final)
+
+arq.close()
+arq = open("aula.txt", "w")
+arq.write(final)
+arq.close()
+
+#parametros do programa sem ser input ou texto
+
+import sys
+#vai ser uma lista, onde cada elemento sera um parametro
+#se nao passar nada, o primeiro parametro
+
+argumentos = sys.argv
+print(argumentos)
+#pq é util?
+#cria um outro aqquivo com o parametro solicitado
+arq = open(sys.argv[1], 'w')
+
+"""chamar no vscode: python .\arquivos.py
+nessa linha você ainda pode colocar parametros
+"""
+
+#arquivo binario
+#da para ler e gravar via python, tipo inteiros, lista, dicionario
+
+#armazenar uma lista em um arquivo txt
+"""leitura = rb
+escrita = wb
+leitura e r+b"""
+
+"""import pickle: ler e escrever objetos no arquivos
+após fizer isso, utiliza o método pickle.dump(objeto,arquivo) e depois pickle.load"""
+
+#cria o arquivo e escreve o objeto lista
+import pickle
+
+lista = [65,66,67,68,69]
+arqbin = open('arq1.bin','wb')
+
+pickle.dump(lista,arqbin)
+arqbin.close()
+
+#abre no modo leitura e printa a variavel
+arqbin = open('arq1.bin', 'rb')
+a = pickle.load(arqbin)
+print(a)
