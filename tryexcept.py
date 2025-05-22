@@ -39,10 +39,31 @@ except:
 else:
     se não tiver nenhuma exceção, executa esse bloco"""
 
+"""except IndexError: #(pode colocar aqui exatamente para o tipo de erro: NameError, etc OU NAO eai vai pegar todos os erros)
+    print("Erro de Index!")"""
+
 try:
     a=[1,2,3]
-    b = a[4]
-except IndexError: #(pode colocar aqui exatamente para o tipo de erro: NameError, etc OU NAO eai vai pegar todos os erros)
-    print("Erro de Index!")
-except NameError: #(pode colocar aqui exatamente para o tipo de erro: NameError, etc)
+
+except: #(pode colocar aqui exatamente para o tipo de erro: NameError, etc)
     print("Erro de Nome!")
+else:
+    print("Continuação do programa")
+    
+finally:
+    print("executa de toda forma") #mesmo que tenha erro no programa, fecha o arquivo
+    
+#raise: vou tratar mas ainda nao tratei
+#pode fazer em while true até o usuário fazer oq ele quer
+while True:
+    try:
+        a = int(input("Digite um numero inteiro: "))
+    
+    except Exception as i:  
+        print("Por favor, é inteiro!")
+    else:
+        print("else")
+        break
+    
+    finally:
+        print("executa de toda forma") 
