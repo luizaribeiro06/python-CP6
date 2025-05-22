@@ -23,28 +23,38 @@ gisela 10 8 10 5 6 10
 joao 8 7 5 6 9"""
 
 arquivo = open("notas.txt", "r")
-linhas = arquivo.readlines() #para ler a linha e retorna uma lista
+linhas = arquivo.readlines()
 arquivo.close()
 
+# percorre cada linha da lista de linhas
 for linha in linhas:
+    # inicializa o contador de espaços para contar as palavras
     contador_espacos = 0
+
+    # percorre cada caractere da linha
     for caractere in linha:
+        # se o caractere for um espaço, aumenta o contador
         if caractere == ' ':
             contador_espacos += 1
-    # se tem mais de 6 espaços, então tem mais de 6 notas (nome + 6 = 7 palavras)
+
+    # se houver mais de 6 espaços, significa que há mais de 6 notas
     if contador_espacos > 6:
+        # extrai o nome do aluno (antes do primeiro espaço)
         nome = ""
         for caractere in linha:
             if caractere == ' ':
                 break
             nome += caractere
+
+        # imprime o nome do aluno com mais de 6 notas
         print(nome)
 
-#print a media e o nome de cada aluno
+# printa a média de notas
 arquivo = open("notas.txt", "r")
 linhas = arquivo.readlines()
 arquivo.close()
 
+# percorre cada linha da lista
 for linha in linhas:
     nome = ""
     numero = ""
@@ -54,67 +64,79 @@ for linha in linhas:
     for caractere in linha:
         if lendo_nome:
             if caractere == ' ':
-                lendo_nome = False
+                lendo_nome = False  # terminou de ler o nome
             else:
                 nome += caractere
         else:
             if caractere != ' ' and caractere != '\n':
-                numero += caractere
+                numero += caractere  # constrói o número
             else:
                 if numero != "":
-                    notas.append(int(numero))
+                    notas.append(int(numero))  # adiciona a nota à lista
                     numero = ""
 
+    # adiciona a última nota (caso não tenha espaço depois dela)
     if numero != "":
-        notas.append(int(numero))  # última nota
+        notas.append(int(numero))
 
-    # Calcula a média manualmente (sem usar sum)
+    # calcula a média manualmente
     soma = 0
+    contador = 0
     for nota in notas:
         soma += nota
+        contador += 1
 
-    if len(notas) > 0:
-        media = soma / len(notas)
-        print(nome, "-", round(media, 2))
+    media = soma / contador  # resultado exato com decimais
 
-#mostra o nome, a nota maxima e minima
+    # imprime o nome e a média com todas as casas decimais padrão
+    print(nome, "-> média:", media)
+
+#ex: mostra o nome, a nota maxima e minima
 arquivo = open("notas.txt", "r")
 linhas = arquivo.readlines()
 arquivo.close()
 
+# percorre cada linha da lista
 for linha in linhas:
-    nome = ""
-    numero = ""
-    notas = []
-    lendo_nome = True
+    nome = ""          # variável que vai guardar o nome do aluno
+    numero = ""        # variável para montar cada número lido da linha
+    notas = []         # lista que vai armazenar as notas do aluno
+    lendo_nome = True  # indica se ainda está lendo o nome
 
+    # percorre cada caractere da linha
     for caractere in linha:
         if lendo_nome:
             if caractere == ' ':
-                lendo_nome = False
+                lendo_nome = False  # ao encontrar o primeiro espaço, para de ler o nome
             else:
-                nome += caractere
+                nome += caractere  # adiciona o caractere ao nome
         else:
             if caractere != ' ' and caractere != '\n':
-                numero += caractere
+                numero += caractere  # monta o número da nota caractere por caractere
             else:
                 if numero != "":
-                    notas.append(int(numero))
-                    numero = ""
+                    notas.append(int(numero))  # converte o número em inteiro e adiciona à lista
+                    numero = ""  # limpa a variável para a próxima nota
 
+    # adiciona a última nota, caso não tenha espaço no final da linha
     if numero != "":
-        notas.append(int(numero))  # adiciona a última nota
+        notas.append(int(numero))
 
-    # Calcula mínimo e máximo manualmente
+    # se houver pelo menos uma nota, calcula o mínimo e o máximo manualmente
     if len(notas) > 0:
-        minimo = notas[0]
-        maximo = notas[0]
+        minimo = notas[0]  # assume que a primeira nota é a menor
+        maximo = notas[0]  # assume que a primeira nota é a maior
+
+        # percorre as notas para encontrar o verdadeiro mínimo e máximo
         for nota in notas:
             if nota < minimo:
                 minimo = nota
             if nota > maximo:
                 maximo = nota
-        print(nome, "- Mínima:", minimo, "| Máxima:", maximo)
+
+        # imprime o nome do aluno junto com sua menor e maior nota
+        print(nome, "- mínima:", minimo, "| máxima:", maximo)
+
 
 """
 Considere a existência de um arquivo financeiro.log com os registros
@@ -134,21 +156,29 @@ arquivo = open("financeiro.log", "r")
 linhas = arquivo.readlines()
 arquivo.close()
 
+# inicializa a variável 'saldo' com zero
 saldo = 0
 
+# percorre cada linha do arquivo
 for linha in linhas:
     valor_texto = ""
     i = 0
-    # Lê o valor (antes do primeiro espaço)
+
+    # lê o valor numérico no início da linha (antes do primeiro espaço)
     while i < len(linha) and linha[i] != ' ':
         valor_texto += linha[i]
         i += 1
 
+    # se encontrou um valor, converte para inteiro
     if valor_texto != "":
         valor = int(valor_texto)
+
+        # adiciona o valor ao saldo (pode ser positivo ou negativo)
         saldo += valor
 
-print("Saldo atual da empresa:", saldo)
+# imprime o saldo final da empresa
+print("saldo financeiro:", saldo)
+
 
 """2) Escreva um programa que leia um valor e uma descrição, e inclua uma nova
 linha no arquivo financeiro.log, conforme o formato ilustrado acima"""
@@ -157,7 +187,7 @@ linha no arquivo financeiro.log, conforme o formato ilustrado acima"""
 valor = input("Digite o valor (ex: 300 ou -150): ")
 descricao = input("Digite a descrição: ")
 
-# Abre o arquivo no modo append para adicionar no final
+# Abre o arquivo no modo append para adicionar no final e escreve as variaveis que pediu para o usuario
 arquivo = open("financeiro.log", "a")
 arquivo.write(valor + " " + descricao + "\n")
 arquivo.close()
